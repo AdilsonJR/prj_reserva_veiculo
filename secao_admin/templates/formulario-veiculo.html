@@ -1,0 +1,47 @@
+ {% extends "base-admin.html" %}
+ {% block title %}Cadastro de Veiculos{% endblock %}
+ {% block content %}
+<section class="container">
+
+    {% if messages %}
+    <ul class="messages mt-3" style="list-style: none;">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }} alert alert-success text-center" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h2 class="text-center mt-4">Formulario de cadastro de veiculos</h2>
+    <form action="{% url 'administrador:cadastro_veiculo' %}" method="POST">
+        {% csrf_token %}
+
+        <label for="id_placa">Placa do veiculo:</label>
+        <input type="text" name="placa" required="true" class="form-control mb-5" id="id_placa">
+
+        <label for="id_nome">Nome do Veiculo:</label>
+        <input type="text" name="nome" required="true" class="form-control mb-5" id="id_nome">
+
+        <label for="id_modelo">Selecione um Modelo:</label>
+        <select name="modelo" required="true" class="form-control mb-5">
+            <option selected disabled hidden>Selecione</option>
+            {% for modelo in modelos %}
+            <option value="{{ modelo.id_modelo }}">{{ modelo.modelo }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="id_data_fabricacao">Data de fabricação do veiculo:</label>
+        <input type="date" name="data_fabricacao" required="true" class="form-control mb-5" id="id_data_fabricacao">
+
+        <label for="id_modelo">Estado do veiculo:</label>
+        <select name="estado" required="true" class="form-control mb-5">
+            <option value='disponivel' >Disponivel</option>
+            <option value='disponivel' >Manutenção</option>
+            <option value='fora-de-servico' >Fora de serviço</option>                 
+        </select>
+
+        <div class="d-flex justify-content-center">
+            <button type="submit" class=" btn btn-primary ">Cadastrar Modelo</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,13 @@
+ {% extends "base.html" %} 
+ {% block title %}Pagina Inicial{% endblock %}
+ {% block content %}
+<h1 class="text-center mt-5" >Pagina inicial</h1>
+<section class="row">
+    <div style="width: 100vh" class=" mt-5 col-lg-12 col-md-12 d-flex justify-content-center">
+        <div style="border: 10px solid black; width: 700px; height: 400px; border-radius: 10px;" class="p-5">
+                <a type="button" href="{% url 'administrador:home' %}" class="btn btn-secondary btn-lg btn-block mt-5 p-3 text-light">Menu admin</a>
+                <a type="button" href="{% url 'funcionario:home' %}" class="btn btn-primary btn-lg btn-block mt-5 p-3">Menu Funcionario</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

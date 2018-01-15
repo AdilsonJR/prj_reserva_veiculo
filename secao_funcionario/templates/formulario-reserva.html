@@ -1,0 +1,40 @@
+{% extends "base-funcionario.html" %} 
+{% block title %}Reservar veiculo{% endblock %} 
+{% block content %}
+{% if messages %}
+<ul class="messages mt-3" style="list-style: none;">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} alert alert-success text-center" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+<section class="container">
+<h2 class="text-center mt-4">Reservar veiculos</h2>
+<form action="{% url 'funcionario:formulario_reserva' %}" method="POST">
+    {% csrf_token %}
+    <label for="id_funcionario">Selecione um Funcionario:</label>
+    <select name="funcionario" required class="form-control mb-5">
+        <option selected disabled hidden>Selecione</option>
+        {% for funcionario in funcionarios %}
+        <option value="{{ funcionario.id_funcionario }}">{{ funcionario.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="id_veiculo">Selecione um veiculo:</label>
+    <select name="veiculo" required class="form-control mb-5">
+        <option selected disabled hidden>Selecione</option>
+        {% for veiculo in veiculos %}
+        <option value="{{ veiculo.id_veiculo }}">{{ veiculo.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="id_data_devolucao">Defina a data de devolução do veiculo</label>
+    <input type="date" required name="data_devolucao" class="form-control mb-5">
+    <div class="d-flex justify-content-center">
+        <button type="submit" class=" btn btn-primary ">Reservar veiculo</button>
+    </div>
+</form>
+
+</section>
+{% endblock %}

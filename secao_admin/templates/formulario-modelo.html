@@ -1,0 +1,24 @@
+{% extends "base-admin.html" %} 
+{% block title %}Cadastrar Modelo{% endblock %}
+{% block content %}
+<section class="container">
+
+    {% if messages %}
+    <ul class="messages mt-3" style="list-style: none;">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }} alert alert-success text-center" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <h2 class="text-center mt-5">Formulario de cadastro de modelos de veiculos</h2>
+    <form action="{% url 'administrador:cadastro_modelo' %}" method="POST">
+        {% csrf_token %} {{ formulario_modelo }}
+        <div class="d-flex justify-content-center">
+
+            <button type="submit" class=" btn btn-primary ">Cadastrar Modelo</button>
+        </div>
+    </form>
+
+</section>
+{% endblock %}

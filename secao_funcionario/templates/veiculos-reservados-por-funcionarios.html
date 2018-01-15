@@ -1,0 +1,67 @@
+{% extends "base-funcionario.html" %} 
+{% block title %}Veiculos reservados{% endblock %}
+{% block content %}
+{% if messages %}
+<ul class="messages mt-3" style="list-style: none;">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} alert alert-success text-center" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %} 
+
+<section class="container">
+
+    <h2 class="text-center mt-4">Tabela de veiculos reservados</h2>
+
+    <div class="row">
+        <form action="{% url 'funcionario:veiculos_reservados_por_funcionarios' %}" class="col-lg-12 d-flex justify-content-center" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-8">
+                    <label for="id_funcionario">Selecione um Funcionario:</label>
+                    <select name="funcionario" class="form-control col-lg-12">
+                        <option selected disabled hidden>Selecione</option>
+                        {% for funcionario in funcionarios %}
+                        <option value="{{ funcionario.id_funcionario }}">{{ funcionario.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-lg-4" style="margin-top: 32px">
+                    <button type="submit" class=" btn btn-primary ">Reservar veiculo</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">id do veiculo</th>                
+                <th class="text-center" scope="col">Veiculo</th>
+                <th class="text-center" scope="col">Reservado por</th>
+                <th class="text-center" scope="col">Data da reserva</th>
+                <th class="text-center" scope="col">Data da da devolução</th>
+                <th class="text-center" scope="col">Ações</th>                
+            </tr>
+        </thead>
+        <tbody>
+            {% for veiculo in veiculos %}
+            <tr>                
+                <td class="text-center">{{veiculo.id_veiculo}}</td>
+                <td class="text-center">{{veiculo}}</td>                
+                <td class="text-center">{{f}}</td>
+                   
+                <td class="text-center"></td>                 
+                <td class="text-center"></td>
+                
+                <td class="text-center">
+                <a type="button" href="{% url 'funcionario:reserva_cancelada' f.id_funcionario veiculo.id_veiculo %}" class="btn btn-danger">Cancelar Reserva</a>
+                <a type="button" href="{% url 'funcionario:formulario_editar' f.id_funcionario veiculo.id_veiculo %}" class="btn btn-warning">Editar Reserva</a>                                                        
+                </td>
+            </tr>
+            {% endfor %}            
+    </table>
+</section>
+{% endblock %}

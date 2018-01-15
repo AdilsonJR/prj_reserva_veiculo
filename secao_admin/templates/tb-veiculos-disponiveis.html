@@ -1,0 +1,33 @@
+{% extends "base-admin.html" %} 
+{% block title %}Menu Administrador{% endblock %} 
+{% block content %}
+
+<h1 class="text-center mt-3 mb-3">Tabela de veiculos disponiveis</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th class="text-center" scope="col">id</th>
+        <th class="text-center" scope="col">Placa</th>
+        <th class="text-center" scope="col">Nome</th>
+        <th class="text-center" scope="col">Data de fabricação</th>
+        <th class="text-center" scope="col">Estado</th>        
+      </tr>
+    </thead>
+    <tbody>
+       {% for veiculo in veiculos %} 
+      <tr>
+        <th class="text-center" scope="row">{{ veiculo.id_veiculo }}</th>
+        <td class="text-center">{{ veiculo.placa }}</td>
+        <td class="text-center">{{ veiculo.nome }}</td>
+        <td class="text-center">{{veiculo.data_fabricacao}}</td>
+        <td class="text-center">{{veiculo.estado}}</td>        
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% endblock %}
+  
+ 
+
+

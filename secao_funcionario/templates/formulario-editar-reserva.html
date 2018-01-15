@@ -1,0 +1,40 @@
+{% extends "base-funcionario.html" %} 
+{% block title %}Editar veiculo{% endblock %} 
+{% block content %}
+{% if messages %}
+<ul class="messages mt-3" style="list-style: none;">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} alert alert-success text-center" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+<section class="container">
+<h2 class="text-center mt-4">Editar Reserva</h2>
+<form action="{% url 'funcionario:editar_reserva' %}" method="POST">
+    {% csrf_token %}
+
+    <input readonly name="old_veiculo" type="hidden" value="{{ id_old_veiculo }}">
+    <input readonly name="id_funcionario" type="hidden" value="{{ funcionario.id_funcionario }}">
+    
+    <label for="id_funcionario">Funcionario:</label>
+    
+    <input readonly name="funcionario" type="text" class="form-control mb-5" value="{{funcionario}}">
+
+    <label for="id_veiculo">Selecione um novo veiculo:</label>
+    <select name="veiculo" class="form-control mb-5">
+        <option selected disabled hidden>{{ veiculo }}</option>
+        {% for veiculo in veiculos %}
+        <option value="{{ veiculo.id_veiculo }}">{{ veiculo.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="id_data_devolucao">Defina uma nova data de devolução do veiculo</label>
+    <input type="date" name="data_devolucao" required class="form-control mb-5">
+    <div class="d-flex justify-content-center">
+        <button type="submit" class=" btn btn-primary ">Editar reserva de veiculo</button>
+    </div>
+</form>
+
+</section>
+{% endblock %}
